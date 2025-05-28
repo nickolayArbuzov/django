@@ -15,18 +15,30 @@ Django-сервис, обрабатывающий webhook-и от банка:
 docker-compose up
 ```
 
-## API
+## Миграции
 
-### POST `/api/webhook/bank/`
-
-Пример запроса:
-
-```json
-{
-  "operation_id": "uuid",
-  "amount": 1000,
-  "payer_inn": "1234567890",
-  "document_number": "PAY-001",
-  "document_date": "2024-01-01T00:00:00Z"
-}
 ```
+docker exec -it django-web-1 sh
+```
+
+стартовые уже есть(опционально):
+
+```
+python manage.py makemigrations
+```
+
+применить миграции:
+
+```
+python manage.py migrate
+```
+
+## API-документация (Swagger & ReDoc)
+
+В проекте используется drf-yasg для автогенерации документации API.
+
+Swagger UI
+📎 http://localhost:8000/swagger/
+
+ReDoc UI
+📎 http://localhost:8000/redoc/
