@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import BankWebhookSerializer
-from .services import process_webhook
+from .services import BankWebhookService
 
 
 class BankWebhookView(APIView):
@@ -14,5 +14,6 @@ class BankWebhookView(APIView):
     def post(self, request):
         serializer = BankWebhookSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        process_webhook(serializer.validated_data)
+        service = BankWebhookService(serializer.validated_data)
+        service.process()
         return Response(status=status.HTTP_201_CREATED)
